@@ -1,15 +1,11 @@
 package ee.taltech.inbankbackend.service;
 
-import com.github.vladislavgoltjajev.personalcode.common.Gender;
 import com.github.vladislavgoltjajev.personalcode.exception.PersonalCodeException;
-import com.github.vladislavgoltjajev.personalcode.locale.estonia.EstonianPersonalCodeGenerator;
 import com.github.vladislavgoltjajev.personalcode.locale.estonia.EstonianPersonalCodeParser;
 import com.github.vladislavgoltjajev.personalcode.locale.estonia.EstonianPersonalCodeValidator;
 import ee.taltech.inbankbackend.config.DecisionEngineConstants;
 import ee.taltech.inbankbackend.exceptions.*;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 
 /**
@@ -26,11 +22,6 @@ public class DecisionEngine {
     private final EstonianPersonalCodeParser parser = new EstonianPersonalCodeParser();
     private int creditModifier = 0;
 
-    public DecisionEngine() throws PersonalCodeException {
-        LocalDate date = LocalDate.parse("1979-12-03");
-        EstonianPersonalCodeGenerator generator = new EstonianPersonalCodeGenerator();
-        System.out.println(generator.generatePersonalCode(Gender.FEMALE, date));
-    }
     /**
      * Calculates the maximum loan amount and period for the customer based on their ID code,
      * the requested loan amount and the loan period.

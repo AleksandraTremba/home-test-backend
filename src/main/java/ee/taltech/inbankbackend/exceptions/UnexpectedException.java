@@ -1,17 +1,17 @@
 package ee.taltech.inbankbackend.exceptions;
 
 /**
- * Thrown when age is invalid.
+ * Thrown when unexpected error occurs.
  */
-public class InvalidAgeException extends Throwable{
+public class UnexpectedException extends Throwable {
     private final String message;
     private final Throwable cause;
 
-    public InvalidAgeException(String message) {
+    public UnexpectedException(String message) {
         this(message, null);
     }
 
-    public InvalidAgeException(String message, Throwable cause) {
+    public UnexpectedException(String message, Throwable cause) {
         this.message = message;
         this.cause = cause;
     }

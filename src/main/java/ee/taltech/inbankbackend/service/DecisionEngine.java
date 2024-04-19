@@ -7,6 +7,8 @@ import ee.taltech.inbankbackend.config.DecisionEngineConstants;
 import ee.taltech.inbankbackend.exceptions.*;
 import org.springframework.stereotype.Service;
 
+import java.rmi.UnexpectedException;
+
 
 /**
  * A service class that provides a method for calculating an approved loan amount and period for a customer.
@@ -40,11 +42,11 @@ public class DecisionEngine {
      */
     public Decision calculateApprovedLoan(String personalCode, Long loanAmount, int loanPeriod)
             throws InvalidPersonalCodeException, InvalidLoanAmountException, InvalidLoanPeriodException, InvalidAgeException,
-            NoValidLoanException, Exception {
+            NoValidLoanException, UnexpectedException {
         try {
             verifyInputs(personalCode, loanAmount, loanPeriod);
         } catch (Exception e) {
-            throw new Exception("Unexpected error occurred!");
+            throw new UnexpectedException("Unexpected error occurred!");
         }
         int outputLoanAmount;
         creditModifier = getCreditModifier(personalCode);

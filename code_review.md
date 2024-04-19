@@ -19,18 +19,15 @@ It happened due to service just returning a loan decision, but with an exception
 <br/>
 Fix:
 * To prevent unexpected data exposure to users, I changed the server's error messages to "Unexpected error occurred!" in calculateApprovedLoan.
-You can use logger for debugging, since the result will not be shown to user, but in developer's console, insuring more security.
-* Now this try-catch block actually throws any caught unexpected exception, resulting in proper error handling.
+You can use logger for debugging, since the result will not be shown to user, but in developer's console, ensuring more security.
+* Now this try-catch block actually throws any caught unexpected exception, resulting in proper error handling. 
 ```java
-  try {
-  verifyInputs(personalCode, loanAmount, loanPeriod);
-  } catch (Exception e) {
-  throw new Exception("Unexpected error occurred!");
-  }
+try {
+    verifyInputs(personalCode, loanAmount, loanPeriod);
+} catch (Exception e) {
+    throw new UnexpectedException("Unexpected error occurred!");
+}
 ```
-
-
-
 
 ## TICKET-102
 For the second part of the task, I implemented an age restricting algorithm for decision loans.

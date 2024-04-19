@@ -1,11 +1,15 @@
 package ee.taltech.inbankbackend.service;
 
+import com.github.vladislavgoltjajev.personalcode.common.Gender;
 import com.github.vladislavgoltjajev.personalcode.exception.PersonalCodeException;
+import com.github.vladislavgoltjajev.personalcode.locale.estonia.EstonianPersonalCodeGenerator;
 import com.github.vladislavgoltjajev.personalcode.locale.estonia.EstonianPersonalCodeParser;
 import com.github.vladislavgoltjajev.personalcode.locale.estonia.EstonianPersonalCodeValidator;
 import ee.taltech.inbankbackend.config.DecisionEngineConstants;
 import ee.taltech.inbankbackend.exceptions.*;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 
 
 /**
@@ -22,6 +26,11 @@ public class DecisionEngine {
     private final EstonianPersonalCodeParser parser = new EstonianPersonalCodeParser();
     private int creditModifier = 0;
 
+    public DecisionEngine() throws PersonalCodeException {
+        LocalDate date = LocalDate.parse("1979-12-03");
+        EstonianPersonalCodeGenerator generator = new EstonianPersonalCodeGenerator();
+        System.out.println(generator.generatePersonalCode(Gender.FEMALE, date));
+    }
     /**
      * Calculates the maximum loan amount and period for the customer based on their ID code,
      * the requested loan amount and the loan period.
@@ -44,7 +53,7 @@ public class DecisionEngine {
         try {
             verifyInputs(personalCode, loanAmount, loanPeriod);
         } catch (Exception e) {
-            return new Decision(null, null, e.getMessage());
+            throw new InvalidLoanAmountException("Unexpected error occurred!");
         }
         int outputLoanAmount;
         creditModifier = getCreditModifier(personalCode);
@@ -112,10 +121,6 @@ public class DecisionEngine {
      */
     private void verifyInputs(String personalCode, Long loanAmount, int loanPeriod)
             throws InvalidPersonalCodeException, InvalidLoanAmountException, InvalidLoanPeriodException, InvalidAgeException, PersonalCodeException {
-        int age = getAge(personalCode);
-        if (age < DecisionEngineConstants.MINIMUM_AGE_FOR_LOAN || age > DecisionEngineConstants.MAXIMUM_AGE_FOR_LOAN) {
-            throw new InvalidAgeException("Invalid age!");
-        }
         if (!validator.isValid(personalCode)) {
             throw new InvalidPersonalCodeException("Invalid personal ID code!");
         }
@@ -126,6 +131,10 @@ public class DecisionEngine {
         if (!(DecisionEngineConstants.MINIMUM_LOAN_PERIOD <= loanPeriod)
                 || !(loanPeriod <= DecisionEngineConstants.MAXIMUM_LOAN_PERIOD)) {
             throw new InvalidLoanPeriodException("Invalid loan period!");
+        }
+        int age = getAge(personalCode);
+        if (age < DecisionEngineConstants.MINIMUM_AGE_FOR_LOAN || age > DecisionEngineConstants.MAXIMUM_AGE_FOR_LOAN) {
+            throw new InvalidAgeException("Invalid age!");
         }
 
     }

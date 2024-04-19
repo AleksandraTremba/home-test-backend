@@ -30,7 +30,7 @@ class DecisionEngineTest {
         debtorPersonalCode = "37605030299";
         segment1PersonalCode = "50307172740";
         segment2PersonalCode = "38411266610";
-        segment3PersonalCode = "35006069515";
+        segment3PersonalCode = "47912039860";
         aboveMaximumAgePersonalCode = "44502089055";
         belowMinimumAgePersonalCode = "61402088138";
     }
@@ -66,7 +66,8 @@ class DecisionEngineTest {
     }
 
     @Test
-    void testInvalidPersonalCode() {
+    void testInvalidPersonalCode() throws InvalidLoanPeriodException, NoValidLoanException,
+            InvalidPersonalCodeException, InvalidLoanAmountException, InvalidAgeException, PersonalCodeException{
         String invalidPersonalCode = "12345678901";
         assertThrows(InvalidPersonalCodeException.class,
                 () -> decisionEngine.calculateApprovedLoan(invalidPersonalCode, 4000L, 12));

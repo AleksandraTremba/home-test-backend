@@ -37,6 +37,6 @@ if (age < DecisionEngineConstants.MINIMUM_AGE_FOR_LOAN || age > DecisionEngineCo
             throw new InvalidAgeException("Invalid age!");
         }
 ```
-* Age retrieving is made with EstonianPersonalCodeValidator from estonian-personal-code-validator:1.6.
+* Age retrieving is made with EstonianPersonalCodeParser from estonian-personal-code-validator:1.6.
 * Minimum age is 18, maximum age is 70 (an arbitrary expected lifetime for the Baltic Scope).
-* Added a few tests to check the age constraint algorithm, as changing the previous tests' input data to pass with new constraints
+* Added a few tests to check the age constraint algorithm, as well as changing the previous tests' input data to pass with new constraints

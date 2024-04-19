@@ -40,11 +40,11 @@ public class DecisionEngine {
      */
     public Decision calculateApprovedLoan(String personalCode, Long loanAmount, int loanPeriod)
             throws InvalidPersonalCodeException, InvalidLoanAmountException, InvalidLoanPeriodException, InvalidAgeException,
-            NoValidLoanException{
+            NoValidLoanException, Exception {
         try {
             verifyInputs(personalCode, loanAmount, loanPeriod);
         } catch (Exception e) {
-            throw new InvalidLoanAmountException("Unexpected error occurred!");
+            throw new Exception("Unexpected error occurred!");
         }
         int outputLoanAmount;
         creditModifier = getCreditModifier(personalCode);

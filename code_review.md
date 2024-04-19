@@ -25,7 +25,7 @@ You can use logger for debugging, since the result will not be shown to user, bu
   try {
   verifyInputs(personalCode, loanAmount, loanPeriod);
   } catch (Exception e) {
-  throw new InvalidLoanAmountException("Unexpected error occurred!");
+  throw new Exception("Unexpected error occurred!");
   }
 ```
 

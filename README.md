@@ -1,3 +1,5 @@
+### TICKET-101 and TICKET-102 conclusion are [here](code_review.md).
+
 # InBank Backend Service
 
 This service provides a REST API for calculating an approved loan amount and period for a customer.

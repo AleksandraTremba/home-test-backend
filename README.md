@@ -1,4 +1,4 @@
-### TICKET-101 and TICKET-102 conclusion are [here](code_review.md).
+### TICKET-101 and TICKET-102 conclusions are [here](code_review.md).
 
 # InBank Backend Service
 
